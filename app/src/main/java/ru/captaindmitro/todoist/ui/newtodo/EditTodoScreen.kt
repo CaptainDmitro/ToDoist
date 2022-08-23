@@ -51,7 +51,8 @@ fun NewTodoScreen(
         when (val state = todoItem.value) {
             is UiState.Success -> {
                 title = state.data.title
-                body = state.data.title
+                body = state.data.body
+                selectedColor = state.data.color
                 onDoneEditing = {
                     detailViewModel.updateTodoItem(state.data, title, body)
                     navController.navigateUp()
@@ -87,13 +88,13 @@ fun NewTodoScreen(
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            CategoriesRow(Category.Public.toString(), Category.Private.toString(), modifier = Modifier.padding(top = 8.dp))
+            CategoriesRow(Category.Public.toString(), Category.Private.toString(), modifier = Modifier.padding(top = 8.dp, start = 16.dp))
             Box(modifier = Modifier
-                .size(48.dp)
-                .padding(8.dp)
+                .padding(start = 16.dp)
+                .size(24.dp)
+                .clickable { colorPickerState.show() }
                 .background(color = selectedColor, shape = CircleShape)
                 .border(border = BorderStroke(1.dp, Color.Black), shape = CircleShape)
-                .clickable { colorPickerState.show() }
             )
             OutlinedTextField(
                 value = title,
@@ -102,7 +103,7 @@ fun NewTodoScreen(
                 singleLine = true,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 16.dp, end = 16.dp)
             )
             OutlinedTextField(
                 value = body,
@@ -110,7 +111,7 @@ fun NewTodoScreen(
                 label = { Text(text = "Note") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 16.dp, end = 16.dp)
             )
             repeat(additionalGoalsCount) { pos ->
                 OutlinedTextField(
@@ -118,16 +119,21 @@ fun NewTodoScreen(
                     onValueChange = { text -> additionalGoals[pos] = text },
                     label = { Text(text = "Additional goal $pos") },
                     trailingIcon = {
-                        IconButton(onClick = { additionalGoals.remove(pos); additionalGoalsCount-- }) {
+                        IconButton(
+                            onClick = { additionalGoals.remove(pos); additionalGoalsCount-- }
+                        ) {
                             Icon(imageVector = Icons.Default.Delete, contentDescription = "")
                         }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 8.dp, end = 8.dp)
+                        .padding(start = 16.dp, end = 16.dp)
                 )
             }
-            TextButton(onClick = { additionalGoalsCount++ }) {
+            TextButton(
+                onClick = { additionalGoalsCount++ },
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
                 Text(text = "Add new goal")
             }
         }

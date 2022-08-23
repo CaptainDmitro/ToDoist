@@ -1,6 +1,7 @@
 package ru.captaindmitro.todoist.data.model
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -15,6 +16,7 @@ data class TodoData(
     @ColumnInfo val body: String,
     @ColumnInfo val timestamp: Long,
     @ColumnInfo val category: Category,
+    @ColumnInfo val color: Int,
 )
 
 fun TodoData.toDomain(): TodoDomain = TodoDomain(
@@ -23,6 +25,7 @@ fun TodoData.toDomain(): TodoDomain = TodoDomain(
     body = this.body,
     date = Date(this.timestamp),
     category = this.category,
+    color = Color(this.color)
 )
 
 fun TodoDomain.toData(): TodoData = TodoData(
@@ -31,4 +34,5 @@ fun TodoDomain.toData(): TodoData = TodoData(
     body = this.body,
     timestamp = this.date.time,
     category = this.category,
+    color = this.color.toArgb()
 )

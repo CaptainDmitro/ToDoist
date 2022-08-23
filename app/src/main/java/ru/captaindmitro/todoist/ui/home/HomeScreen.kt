@@ -40,7 +40,7 @@ fun HomeScreen(
         is UiState.Success -> {
             LazyColumn(
                 state = listState,
-                contentPadding = PaddingValues(8.dp),
+                contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -62,6 +62,7 @@ fun HomeScreen(
                         todoItem = item,
                         navToDetails = { navController.navigate("details/${item.id}") },
                         removeTodo = homeViewModel::removeTodoItem,
+//                        removeTodo = homeViewModel::removeTodoItem,
                     )
                 }
             }

@@ -32,11 +32,6 @@ fun ProfileScreen() {
             contentDescription = "",
             modifier = Modifier.clip(CircleShape)
         )
-        Card(
-            modifier = Modifier.fillMaxWidth().height(64.dp)
-        ) {
-            Text(text = "Upgrade to premium")
-        }
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
@@ -44,18 +39,28 @@ fun ProfileScreen() {
                 .wrapContentHeight()
         ) {
             Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ),
                 modifier = Modifier
                     .height(72.dp)
                     .weight(.5f)
             ) {
-                Text("Tast A")
+                Text(text = "Text 1", modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center))
             }
             Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ),
                 modifier = Modifier
                     .height(72.dp)
                     .weight(.5f)
             ) {
-                Text("Tast B")
+                Text(text = "Text 1", modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center))
             }
         }
     }

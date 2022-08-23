@@ -30,7 +30,6 @@ fun CategoriesRow(
     LazyRow(
         state = state,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
         modifier = modifier
     ) {
         items(folders) { folder ->

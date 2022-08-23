@@ -1,13 +1,14 @@
 package ru.captaindmitro.todoist.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.captaindmitro.todoist.domain.models.TodoDomain
@@ -21,10 +22,13 @@ fun ToDoItem(
     removeTodo: (TodoDomain) -> Unit,
     isChecked: Boolean = false
 ) {
+    var isDone by remember { mutableStateOf(false) }
+
     Card(
         onClick = navToDetails,
+        enabled = !isDone,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = if (todoItem.color != Color.Unspecified) todoItem.color else MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         modifier = Modifier
@@ -38,14 +42,12 @@ fun ToDoItem(
                 .padding(start = 16.dp)
         ) {
             Text(
-                text = "${todoItem.title}: ${todoItem.id}",
-                style = MaterialTheme.typography.titleMedium,
+                text = todoItem.title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    textDecoration = if (isDone) TextDecoration.LineThrough else TextDecoration.None
+                )
             )
-            IconButton(
-                onClick = { removeTodo(todoItem) },
-            ) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-            }
+            RadioButton(selected = isDone, onClick = { isDone = !isDone })
         }
         Text(
             text = "${todoItem.date}",
