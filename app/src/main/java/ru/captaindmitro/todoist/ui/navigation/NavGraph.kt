@@ -14,6 +14,7 @@ import ru.captaindmitro.todoist.ui.details.DetailsScreen
 import ru.captaindmitro.todoist.ui.home.HomeScreen
 import ru.captaindmitro.todoist.ui.home.HomeViewModel
 import ru.captaindmitro.todoist.ui.newtodo.NewTodoScreen
+import ru.captaindmitro.todoist.ui.profile.ProfileScreen
 
 @Composable
 fun NavGraph(
@@ -41,5 +42,6 @@ fun NavGraph(
         ) {
             NewTodoScreen(homeViewModel, detailViewModel, navHostController, it.arguments?.getBoolean("editSelectedItem"))
         }
+        composable("profile") { ProfileScreen() }
     }
 }

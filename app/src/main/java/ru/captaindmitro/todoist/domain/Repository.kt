@@ -1,6 +1,7 @@
 package ru.captaindmitro.todoist.domain
 
 import kotlinx.coroutines.flow.Flow
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 
 interface Repository {
 

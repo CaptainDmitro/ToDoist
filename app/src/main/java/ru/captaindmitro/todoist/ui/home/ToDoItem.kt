@@ -7,9 +7,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.captaindmitro.todoist.domain.TodoDomain
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 import java.sql.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,9 +19,8 @@ fun ToDoItem(
     todoItem: TodoDomain,
     navToDetails: () -> Unit,
     removeTodo: (TodoDomain) -> Unit,
+    isChecked: Boolean = false
 ) {
-    var state by remember { mutableStateOf(false) }
-
     Card(
         onClick = navToDetails,
         colors = CardDefaults.cardColors(
@@ -53,7 +53,6 @@ fun ToDoItem(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         )
     }
-
 }
 
 @Preview(showBackground = true)

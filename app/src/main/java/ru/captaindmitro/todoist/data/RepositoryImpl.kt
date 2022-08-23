@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import ru.captaindmitro.todoist.data.model.toData
 import ru.captaindmitro.todoist.data.model.toDomain
 import ru.captaindmitro.todoist.domain.Repository
-import ru.captaindmitro.todoist.domain.TodoDomain
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(

@@ -1,7 +1,7 @@
 package ru.captaindmitro.todoist.domain.usecase
 
 import ru.captaindmitro.todoist.domain.Repository
-import ru.captaindmitro.todoist.domain.TodoDomain
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 import javax.inject.Inject
 
 class UpdateTodoItemUseCase @Inject constructor(

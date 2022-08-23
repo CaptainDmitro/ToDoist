@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.captaindmitro.todoist.domain.TodoDomain
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 import ru.captaindmitro.todoist.domain.usecase.GetTodoItemByIdUseCase
 import ru.captaindmitro.todoist.domain.usecase.UpdateTodoItemUseCase
 import ru.captaindmitro.todoist.ui.common.UiState

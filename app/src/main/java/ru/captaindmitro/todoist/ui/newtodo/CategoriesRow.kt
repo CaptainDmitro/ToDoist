@@ -16,16 +16,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.captaindmitro.todoist.domain.models.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoldersRow(
+fun CategoriesRow(
     vararg folders: String,
     modifier: Modifier = Modifier
 ) {
-
     val state = rememberLazyListState()
-    var selected by remember { mutableStateOf("") }
+    var selected by remember { mutableStateOf(Category.None) }
 
     LazyRow(
         state = state,
@@ -35,10 +35,9 @@ fun FoldersRow(
     ) {
         items(folders) { folder ->
             InputChip(
-                selected = selected == folder,
-                onClick = { if (selected == folder) selected = "" else selected = folder; Log.i("Main", "$selected") },
-                label = { Text(text = folder) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Done, contentDescription = "") },
+                selected = selected.toString() == folder,
+                onClick = { if (selected.toString() == folder) selected = Category.None else selected = Category.valueOf(folder) },
+                label = { Text(text = folder) }
             )
         }
     }

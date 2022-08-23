@@ -86,4 +86,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
+    implementation "io.github.vanpra.compose-material-dialogs:core:0.8.1-rc"
+    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc"
+    implementation "io.github.vanpra.compose-material-dialogs:color:0.8.1-rc"
+
 }

@@ -1,9 +1,6 @@
 package ru.captaindmitro.todoist.ui.details
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -12,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.captaindmitro.todoist.ui.common.UiState
 
@@ -49,9 +47,20 @@ fun DetailsScreen(
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
             is UiState.Success -> {
-                Column {
-                    Text(text = state.data.title)
-                    Text(text = state.data.body)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .wrapContentSize()
+                ) {
+                    Text(
+                        text = state.data.title,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(
+                        text = state.data.body,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
             }
             is UiState.Failure -> {

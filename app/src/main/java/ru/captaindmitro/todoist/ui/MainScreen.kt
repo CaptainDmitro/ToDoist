@@ -1,27 +1,22 @@
 package ru.captaindmitro.todoist.ui
 
-import android.util.Log
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ru.captaindmitro.todoist.R
 import ru.captaindmitro.todoist.ui.navigation.NavGraph
+import ru.captaindmitro.todoist.ui.newtodo.CategoriesRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,26 +26,52 @@ fun MainScreen(
     val navDestination by navController.currentBackStackEntryAsState()
 
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text(text = stringResource(id = R.string.app_name)) },
-                navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.Menu, contentDescription = "")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.Person, contentDescription = "")
-                    }
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+//        topBar = {
+//            CenterAlignedTopAppBar(
+//                title = { Text(text = stringResource(id = R.string.app_name)) },
+//                navigationIcon = {
+//                    IconButton(onClick = { /*TODO*/ }) {
+//                        Icon(imageVector = Icons.Default.Menu, contentDescription = "")
+//                    }
+//                },
+//                actions = {
+//                    IconButton(onClick = { navController.navigate("profile", NavOptions.Builder().setLaunchSingleTop(true).build()) }) {
+//                        Icon(imageVector = Icons.Default.Person, contentDescription = "")
+//                    }
+//                },
+//                colors = TopAppBarDefaults.smallTopAppBarColors(
+//                    containerColor = MaterialTheme.colorScheme.primary,
+//                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+//                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+//                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+//                )
+//            )
+//        },
+        bottomBar = {
+            NavigationBar(
+                modifier = Modifier.heightIn(max = 48.dp)
+            ) {
+                NavigationBarItem(
+                    selected = navDestination?.destination?.route == "home",
+                    onClick = { navController.navigate("home") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = ""
+                        )
+                    },
                 )
-            )
+                NavigationBarItem(
+                    selected = navDestination?.destination?.route == "profile",
+                    onClick = { navController.navigate("profile") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = ""
+                        )
+                    },
+                )
+            }
         },
         floatingActionButton = {
             navDestination?.destination?.route.let {

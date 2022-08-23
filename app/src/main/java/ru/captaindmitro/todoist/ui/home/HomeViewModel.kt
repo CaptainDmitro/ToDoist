@@ -1,19 +1,17 @@
 package ru.captaindmitro.todoist.ui.home
 
-import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.captaindmitro.todoist.domain.TodoDomain
+import ru.captaindmitro.todoist.domain.models.TodoDomain
 import ru.captaindmitro.todoist.domain.common.Result
 import ru.captaindmitro.todoist.domain.usecase.AddTodoItemUseCase
 import ru.captaindmitro.todoist.domain.usecase.GetAllTodosUseCase
 import ru.captaindmitro.todoist.domain.usecase.RemoveTodoItemUseCase
-import ru.captaindmitro.todoist.domain.usecase.UpdateTodoItemUseCase
 import ru.captaindmitro.todoist.ui.common.UiState
-import java.sql.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,9 +42,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun addTodoItem(title: String, body: String) {
+    fun addTodoItem(title: String, body: String, color: Color) {
         viewModelScope.launch {
-            addTodoItemUseCase.addTodoItem(title, body)
+            addTodoItemUseCase.addTodoItem(title, body, color)
         }
     }
 
