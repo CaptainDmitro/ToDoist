@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.captaindmitro.todoist.domain.TodoDomain
 import ru.captaindmitro.todoist.domain.usecase.GetTodoItemByIdUseCase
+import ru.captaindmitro.todoist.domain.usecase.UpdateTodoItemUseCase
 import ru.captaindmitro.todoist.ui.common.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val getTodoItemByIdUseCase: GetTodoItemByIdUseCase
+    private val getTodoItemByIdUseCase: GetTodoItemByIdUseCase,
+    private val updateTodoItemUseCase: UpdateTodoItemUseCase
 ) : ViewModel() {
 
     private val _todoItem: MutableStateFlow<UiState<TodoDomain>> = MutableStateFlow(UiState.Empty)
@@ -22,7 +24,20 @@ class DetailViewModel @Inject constructor(
 
     fun getTodoItemById(id: Int) {
         viewModelScope.launch {
-            _todoItem.value = UiState.Success(getTodoItemByIdUseCase.execute(id))
+            try {
+                val res = getTodoItemByIdUseCase.execute(id)
+                _todoItem.value = UiState.Success(res)
+            } catch (e: Exception) {
+                _todoItem.value = UiState.Failure(e)
+            }
+        }
+    }
+
+    fun updateTodoItem(todoItem: TodoDomain, newTitle: String, newBody: String) {
+        viewModelScope.launch {
+            updateTodoItemUseCase.execute(
+                todoItem.copy(title = newTitle, body = newBody)
+            )
         }
     }
 

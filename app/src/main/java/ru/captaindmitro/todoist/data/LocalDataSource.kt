@@ -14,6 +14,7 @@ interface LocalDataSource {
     fun getAllTodos(): Flow<List<TodoData>>
     suspend fun getTodoItemById(id: Int): TodoData
     suspend fun addTodoItem(todo: TodoData)
+    suspend fun updateTodoItem(todo: TodoData)
     suspend fun deleteTodoItem(todo: TodoData)
 
     class Base @Inject constructor(
@@ -33,6 +34,10 @@ interface LocalDataSource {
         override suspend fun addTodoItem(todo: TodoData) = withContext(dispatcher) {
             Log.i("Main", "LDT:addTodoItem ${todo}")
             todoDao.addTodoItem(todo)
+        }
+
+        override suspend fun updateTodoItem(todo: TodoData) = withContext(dispatcher) {
+            todoDao.updateTodoItem(todo)
         }
 
         override suspend fun deleteTodoItem(todo: TodoData) {

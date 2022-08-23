@@ -21,6 +21,7 @@ fun NavGraph(
     modifier: Modifier = Modifier
 ) {
     val homeViewModel: HomeViewModel = hiltViewModel()
+    val detailViewModel: DetailViewModel = hiltViewModel()
 
     NavHost(
         navController = navHostController,
@@ -32,9 +33,13 @@ fun NavGraph(
             "details/{todoItemId}",
             arguments = listOf(navArgument("todoItemId") { type = NavType.IntType })
         ) {
-            val detailViewModel: DetailViewModel = hiltViewModel()
-            DetailsScreen(detailViewModel, it.arguments?.getInt("todoItemId"))
+            DetailsScreen(detailViewModel, navHostController, it.arguments?.getInt("todoItemId"))
         }
-        composable("newtodo") { NewTodoScreen(homeViewModel, navHostController) }
+        composable(
+            "newtodo?editSelectedItem={editSelectedItem}",
+            arguments = listOf(navArgument("editSelectedItem") { defaultValue = false })
+        ) {
+            NewTodoScreen(homeViewModel, detailViewModel, navHostController, it.arguments?.getBoolean("editSelectedItem"))
+        }
     }
 }

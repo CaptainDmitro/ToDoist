@@ -35,7 +35,7 @@ class RepositoryImpl @Inject constructor(
         return localDataSource.getTodoItemById(id).toDomain()
     }
 
-    override suspend fun unpadeTodoItem() {
-        TODO("Not yet implemented")
+    override suspend fun updateTodoItem(todoItem: TodoDomain) {
+        localDataSource.updateTodoItem(todoItem.toData())
     }
 }

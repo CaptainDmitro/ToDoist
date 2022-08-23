@@ -1,9 +1,6 @@
 package ru.captaindmitro.todoist.data.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.captaindmitro.todoist.data.model.TodoData
 
@@ -18,6 +15,9 @@ interface TodoDao {
 
     @Insert
     suspend fun addTodoItem(todo: TodoData)
+
+    @Update
+    suspend fun updateTodoItem(todo: TodoData)
 
     @Delete
     suspend fun deleteTodoItem(todo: TodoData)

@@ -1,6 +1,5 @@
 package ru.captaindmitro.todoist.ui.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,7 +21,6 @@ fun HomeScreen(
 ) {
     val todoList = homeViewModel.todoItems.collectAsState()
     val listState = rememberLazyListState()
-    Log.i("Main", "todolist: ${todoList.value::class.java}")
 
     when (val state = todoList.value) {
         is UiState.Empty -> {

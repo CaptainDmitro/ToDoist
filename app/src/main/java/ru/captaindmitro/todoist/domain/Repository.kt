@@ -8,5 +8,5 @@ interface Repository {
     suspend fun getTodoItemById(id: Int): TodoDomain
     suspend fun addTodoItem(todo: TodoDomain)
     suspend fun removeTodoItem(todo: TodoDomain)
-    suspend fun unpadeTodoItem()
+    suspend fun updateTodoItem(todoItem: TodoDomain)
 }
