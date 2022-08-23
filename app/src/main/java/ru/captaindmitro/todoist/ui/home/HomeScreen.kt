@@ -60,9 +60,7 @@ fun HomeScreen(
                 ) { item ->
                     ToDoItem(
                         todoItem = item,
-                        navToDetails = { navController.navigate("details/${item.id}") },
-                        removeTodo = homeViewModel::removeTodoItem,
-//                        removeTodo = homeViewModel::removeTodoItem,
+                        navToDetails = { navController.navigate("newtodo?todoItemId=${item.id}") },
                     )
                 }
             }

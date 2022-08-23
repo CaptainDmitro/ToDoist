@@ -1,5 +1,6 @@
-package ru.captaindmitro.todoist.ui.details
+package ru.captaindmitro.todoist.ui.newtodo
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,10 +34,10 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun updateTodoItem(todoItem: TodoDomain, newTitle: String, newBody: String) {
+    fun updateTodoItem(todoItem: TodoDomain, newTitle: String, newBody: String, newColor: Color) {
         viewModelScope.launch {
             updateTodoItemUseCase.execute(
-                todoItem.copy(title = newTitle, body = newBody)
+                todoItem.copy(title = newTitle, body = newBody, color = newColor)
             )
         }
     }

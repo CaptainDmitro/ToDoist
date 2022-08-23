@@ -1,5 +1,6 @@
 package ru.captaindmitro.todoist.ui.newtodo
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,18 +22,22 @@ import com.vanpra.composematerialdialogs.color.colorChooser
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import ru.captaindmitro.todoist.domain.models.Category
 import ru.captaindmitro.todoist.ui.common.UiState
-import ru.captaindmitro.todoist.ui.details.DetailViewModel
 import ru.captaindmitro.todoist.ui.home.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewTodoScreen(
+fun EditTodoScreen(
     homeViewModel: HomeViewModel,
     detailViewModel: DetailViewModel,
     navController: NavController,
-    editSelectedItem: Boolean?
+    todoItemId: Int?
 ) {
-    val editMode = editSelectedItem ?: false
+    LaunchedEffect(Unit) {
+        todoItemId?.let { id ->
+            detailViewModel.getTodoItemById(id)
+        }
+    }
+
     var title by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
     var selectedColor by remember { mutableStateOf(Color.Unspecified) }
@@ -46,7 +51,7 @@ fun NewTodoScreen(
 
     val colorPickerState = rememberMaterialDialogState()
 
-    if (editMode) {
+    todoItemId?.let {
         val todoItem = detailViewModel.todoItem.collectAsState()
         when (val state = todoItem.value) {
             is UiState.Success -> {
@@ -54,7 +59,7 @@ fun NewTodoScreen(
                 body = state.data.body
                 selectedColor = state.data.color
                 onDoneEditing = {
-                    detailViewModel.updateTodoItem(state.data, title, body)
+                    detailViewModel.updateTodoItem(state.data, title, body, selectedColor)
                     navController.navigateUp()
                 }
             }

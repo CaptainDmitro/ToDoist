@@ -1,6 +1,9 @@
 package ru.captaindmitro.todoist.ui.home
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,8 +22,6 @@ import java.sql.Date
 fun ToDoItem(
     todoItem: TodoDomain,
     navToDetails: () -> Unit,
-    removeTodo: (TodoDomain) -> Unit,
-    isChecked: Boolean = false
 ) {
     var isDone by remember { mutableStateOf(false) }
 
@@ -28,7 +29,7 @@ fun ToDoItem(
         onClick = navToDetails,
         enabled = !isDone,
         colors = CardDefaults.cardColors(
-            containerColor = if (todoItem.color != Color.Unspecified) todoItem.color else MaterialTheme.colorScheme.primaryContainer,
+            containerColor = todoItem.color,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         modifier = Modifier
@@ -64,8 +65,7 @@ fun ToDoItemPreview() {
         repeat(10) {
             ToDoItem(
                 todoItem = TodoDomain(1, "", "", Date(1L)),
-                navToDetails = { },
-                {},
+                navToDetails = { }
             )
         }
     }
